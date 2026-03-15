@@ -14,18 +14,21 @@ A custom Home Assistant Lovelace card that displays Docker containers managed by
 
 ## Installation
 
+### HACS (Recommended)
+
+1. Open HACS in your Home Assistant instance
+2. Click the three-dot menu in the top right and select **Custom repositories**
+3. Add `https://github.com/kaymyst/ha-portainer-ui` with category **Dashboard**
+4. Click **+ Explore & Download Repositories** and search for **Portainer Containers Card**
+5. Click **Download**
+6. Restart Home Assistant
+
 ### Manual
 
-1. Copy `portainer-containers-card.js` to your Home Assistant `config/www/` directory
-2. In your HA dashboard, go to **Settings → Dashboards → three-dot menu → Resources**
-3. Add resource: `/local/portainer-containers-card.js` with type **JavaScript Module**
-
-### HACS (Custom Repository)
-
-1. In HACS, go to **Frontend → three-dot menu → Custom repositories**
-2. Add this repository URL with category **Lovelace**
-3. Install **Portainer Containers Card**
-4. Restart Home Assistant
+1. Download `portainer-containers-card.js` from the [latest release](https://github.com/kaymyst/ha-portainer-ui/releases/latest)
+2. Copy it to your Home Assistant `config/www/` directory
+3. In your HA dashboard, go to **Settings → Dashboards → three-dot menu → Resources**
+4. Add resource: `/local/portainer-containers-card.js` with type **JavaScript Module**
 
 ## Configuration
 
