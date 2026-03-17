@@ -94,13 +94,21 @@ class PortainerContainersCard extends LitElement {
         display: flex;
         align-items: center;
         gap: 4px;
-        font-size: 0.8em;
+        font-size: 0.9em;
         color: var(--secondary-text-color, #727272);
         white-space: nowrap;
         justify-content: flex-end;
+        cursor: pointer;
+        border-radius: 6px;
+        padding: 2px 4px;
+        transition: background 0.15s, color 0.15s;
+      }
+      .stat:hover {
+        background: var(--secondary-background-color, #f5f5f5);
+        color: var(--primary-text-color, #212121);
       }
       .stat ha-icon {
-        --mdc-icon-size: 14px;
+        --mdc-icon-size: 16px;
       }
       .empty {
         padding: 24px 16px;
@@ -212,6 +220,8 @@ class PortainerContainersCard extends LitElement {
         memory: memoryObj?.state ?? "N/A",
         memoryUnit: memoryObj?.attributes?.unit_of_measurement || "MB",
         stateEntityId,
+        cpuEntityId,
+        memoryEntityId,
       });
     }
 
@@ -270,6 +280,16 @@ class PortainerContainersCard extends LitElement {
     this.dispatchEvent(event);
   }
 
+  _handleStatClick(e, entityId) {
+    if (!entityId) return;
+    e.stopPropagation();
+    const event = new CustomEvent("hass-more-info", {
+      composed: true,
+      detail: { entityId },
+    });
+    this.dispatchEvent(event);
+  }
+
   render() {
     if (!this.hass || !this._config) {
       return html``;
@@ -300,11 +320,11 @@ class PortainerContainersCard extends LitElement {
                       >
                         ${c.state}
                       </div>
-                      <div class="stat">
+                      <div class="stat" @click=${(e) => this._handleStatClick(e, c.cpuEntityId)}>
                         <ha-icon icon="mdi:cpu-64-bit"></ha-icon>
                         ${this._formatCpu(c.cpu)}
                       </div>
-                      <div class="stat">
+                      <div class="stat" @click=${(e) => this._handleStatClick(e, c.memoryEntityId)}>
                         <ha-icon icon="mdi:memory"></ha-icon>
                         ${this._formatMemory(c.memory, c.memoryUnit)}
                       </div>
